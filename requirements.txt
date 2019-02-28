@@ -5,3 +5,5 @@ argparse
 passwordgenerator
 SQLAlchemy
 pysqlcipher3
+pillow
+qrcode
