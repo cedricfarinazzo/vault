@@ -13,7 +13,7 @@ from ..modules.misc import confirm, clear_screen
 from ..modules.carry import global_scope
 from ..modules import autocomplete
 from .categories import get_name as get_category_name, pick
-from . import clipboard, menu
+from . import clipboard, menu, passqrcode
 
 
 def all():
@@ -340,7 +340,7 @@ def item_menu(item):
 
     while True:
         command = menu.get_input(
-            message='Choose a command [copy (l)ogin, (p)assword or (u)rl to clipboard / sh(o)w password / (e)dit / (d)elete / (s)earch / (b)ack to Vault]: ',
+            message='Choose a command [copy (l)ogin, (p)assword or (u)rl to clipboard / sh(o)w password / show password q(r)code / (e)dit / (d)elete / (s)earch / (b)ack to Vault]: ',
             lowercase=True,
             non_locking_values=['l', 'q']
         )
@@ -360,6 +360,8 @@ def item_menu(item):
             clipboard.wait()
         elif command == 'o':  # Show a secret
             return show_secret(item)
+        elif command == 'r':
+            passqrcode.show(item)
         elif command == 'e':  # Edit an item
             item_menu_edit(item)
             return

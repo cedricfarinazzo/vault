@@ -38,6 +38,7 @@ class Config:
             'salt': self.generate_random_salt(),
             'clipboardTTL': '15',
             'hideSecretTTL': '5',
+            'hideQrcodeTTL': '30',
             'autoLockTTL': '900',
             'encryptedDb': True,
         }

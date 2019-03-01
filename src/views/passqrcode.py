@@ -3,7 +3,7 @@
 import qrcode
 import time
 import psutil
-
+from ..modules.carry import global_scope
 
 def generate_qrcode(password, version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=15, border=1):
     """
@@ -33,7 +33,11 @@ def display_qrcode(img, duration=None):
     img.show()
 
     if duration != None and duration > 0:
-        time.sleep(duration)
+        try:
+            time.sleep(duration)
+        except KeyboardInterrupt:
+            # Will catch `^-c` and immediately close qrcode
+            pass
         
         for proc in psutil.process_iter():
             if proc.name == "display":
@@ -46,4 +50,15 @@ def display_qrcode(img, duration=None):
                     proc.kill()
                 except:
                     pass
+
+def show(item):
+    
+    print("* The qrcode will be hidden after %s seconds." %
+              (global_scope['conf'].hideQrcodeTTL))
+    
+    qrcode = generate_qrcode(item.password)
+
+    display_qrcode(img, (global_scope['conf'].hideQrcodeTTL))
+
+    return
 
